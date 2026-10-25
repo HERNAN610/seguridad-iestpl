@@ -147,6 +147,7 @@ function mostrarDatos() {
 
     const imgEstudiante = document.createElement("img")
     imgEstudiante.classList.add("imgEstudiante")
+
     imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`
 
     imgEstudiante.onerror = () => {
