@@ -6,40 +6,59 @@ let dni = ""
 let estudianteBuscado = null
 
 //GENERAR INPUT
+//GENERAR INPUT
 function generaraContenedorImput() {
-    //contenedor input
-    const contenedorInput = document.createElement("div")
-    contenedorInput.id = "contenedorInput"
-    contenedorInput.classList.add("contenedorInput")
-    //titulo
-    const Titulo = document.createElement("h1")
-    Titulo.textContent = "Sistema de identificación"
-    Titulo.classList.add("tituloImput")
-    //input
-    const inputDNI = document.createElement("input")
-    inputDNI.type = "number"
-    inputDNI.placeholder = "Ingrese su DNI"
-    inputDNI.id = "DNIpaswore"
-    inputDNI.classList.add("DNIpaswore")
-    inputDNI.onkeydown = reconocerEnter
-    //boton
-    const botonEnviar = document.createElement("button")
-    botonEnviar.type = "submit"
-    botonEnviar.textContent = "Consultar"
-    botonEnviar.classList.add("botonEnviar")
-    botonEnviar.onclick = confirmarExistenciaDNI
-    //cont alerta
-    contenedorAlerta = document.createElement("div")
-    contenedorAlerta.id = "contenedorAlerta"
-    //mostrar
-    contenedorInput.appendChild(inputDNI)
-    contenedorInput.appendChild(botonEnviar)
+    // contenedor input
+    const contenedorInput = document.createElement("div");
+    contenedorInput.id = "contenedorInput";
+    contenedorInput.classList.add("contenedorInput");
 
-    contenedorPadre.appendChild(Titulo)
-    contenedorPadre.appendChild(contenedorInput)
-    contenedorPadre.appendChild(contenedorAlerta)
+    // titulo
+    const Titulo = document.createElement("h1");
+    Titulo.textContent = "Sistema de identificación";
+    Titulo.classList.add("tituloImput");
 
-    document.getElementById("DNIpaswore").focus()
+    // input
+    const inputDNI = document.createElement("input");
+    inputDNI.type = "text"; // Cambiado a text por si usa carné de extranjería alfanumérico
+    inputDNI.placeholder = "Ingrese su DNI o Carné";
+    inputDNI.id = "DNIpaswore";
+    inputDNI.classList.add("DNIpaswore");
+    inputDNI.onkeydown = reconocerEnter;
+
+    // Botón para activar la cámara de escaneo
+    const botonEscanear = document.createElement("button");
+    botonEscanear.type = "button";
+    botonEscanear.textContent = "📷 Esccanear";
+    botonEscanear.classList.add("botonEscanear");
+    botonEscanear.onclick = () => {
+        iniciarEscaner((codigoEscaneado) => {
+            inputDNI.value = codigoEscaneado;
+            confirmarExistenciaDNI(); // Ejecuta la búsqueda automáticamente al escanear
+        });
+    };
+
+    // boton consultar
+    const botonEnviar = document.createElement("button");
+    botonEnviar.type = "submit";
+    botonEnviar.textContent = "Consultar";
+    botonEnviar.classList.add("botonEnviar");
+    botonEnviar.onclick = confirmarExistenciaDNI;
+
+    // cont alerta
+    contenedorAlerta = document.createElement("div");
+    contenedorAlerta.id = "contenedorAlerta";
+
+    // mostrar en pantalla
+    contenedorInput.appendChild(inputDNI);
+    contenedorInput.appendChild(botonEscanear); // Añadido el botón de escaneo
+    contenedorInput.appendChild(botonEnviar);
+
+    contenedorPadre.appendChild(Titulo);
+    contenedorPadre.appendChild(contenedorInput);
+    contenedorPadre.appendChild(contenedorAlerta);
+
+    document.getElementById("DNIpaswore").focus();
 }
 generaraContenedorImput();
 
@@ -149,7 +168,7 @@ function mostrarDatos() {
     imgEstudiante.classList.add("imgEstudiante");
     imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`;
 
- 
+
     imgEstudiante.onerror = () => {
 
         imgEstudiante.onerror = null;
