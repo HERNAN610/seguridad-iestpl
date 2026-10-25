@@ -148,12 +148,12 @@ function mostrarDatos() {
     const imgEstudiante = document.createElement("img")
     imgEstudiante.classList.add("imgEstudiante")
 
-    imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`
+    imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`;
 
     imgEstudiante.onerror = () => {
-        this.onerror = null;
-        imgEstudiante.src = "/img/img_default.png";
-    }
+        imgEstudiante.onerror = null;
+        imgEstudiante.src = "img/img_default.png"; 
+    };
 
     const botonLimpiar = document.createElement("button")
     botonLimpiar.textContent = "Limpiar"
