@@ -147,18 +147,14 @@ function mostrarDatos() {
 
     const imgEstudiante = document.createElement("img");
     imgEstudiante.classList.add("imgEstudiante");
-
-    // Asignamos la imagen del alumno
     imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`;
 
-    // Control de error seguro
+ 
     imgEstudiante.onerror = () => {
-        // Evitamos cualquier posibilidad de bucle anulando el onerror inmediatamente
+
         imgEstudiante.onerror = null;
 
         console.warn(`No se encontró la foto para el DNI: ${estudianteBuscado.DNI}, cargando imagen por defecto.`);
-
-        // Usamos la ruta absoluta desde la raíz del sitio
         imgEstudiante.src = "/img/img_default.png";
     };
 
@@ -197,11 +193,11 @@ function confirmarEstadoEstudiante() {
 
 // Sonidos
 function sonidoEgresado() {
-    new Audio("sonido/Egresado.mp3").play();
+    new Audio("sound/Egresado.mp3").play();
 }
 function sonidoMatriculado() {
-    new Audio("sonido/Matriculado.mp3").play();
+    new Audio("sound/Matriculado.mp3").play();
 }
 function sonidoNoMatriculado() {
-    new Audio("sonido/NoMatriculado.mp3").play();
+    new Audio("sound/NoMatriculado.mp3").play();
 }
