@@ -151,7 +151,8 @@ function mostrarDatos() {
     imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`
 
     imgEstudiante.onerror = () => {
-        imgEstudiante.src = "img/img_default.png";
+        this.onerror = null;
+        imgEstudiante.src = "/img/img_default.png";
     }
 
     const botonLimpiar = document.createElement("button")
