@@ -29,7 +29,7 @@ function generaraContenedorImput() {
     // Botón para activar la cámara de escaneo
     const botonEscanear = document.createElement("button");
     botonEscanear.type = "button";
-    botonEscanear.textContent = "📷 Esccanear";
+    botonEscanear.textContent = "📷Scan";
     botonEscanear.classList.add("botonEscanear");
     botonEscanear.onclick = () => {
         iniciarEscaner((codigoEscaneado) => {
