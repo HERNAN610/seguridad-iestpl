@@ -145,14 +145,21 @@ function mostrarDatos() {
         datos.appendChild(valor);
     }
 
-    const imgEstudiante = document.createElement("img")
-    imgEstudiante.classList.add("imgEstudiante")
+    const imgEstudiante = document.createElement("img");
+    imgEstudiante.classList.add("imgEstudiante");
 
+    // Asignamos la imagen del alumno
     imgEstudiante.src = `img/alumnos/${estudianteBuscado.DNI}.jpeg`;
 
+    // Control de error seguro
     imgEstudiante.onerror = () => {
+        // Evitamos cualquier posibilidad de bucle anulando el onerror inmediatamente
         imgEstudiante.onerror = null;
-        imgEstudiante.src = "img/img_default.png"; 
+
+        console.warn(`No se encontró la foto para el DNI: ${estudianteBuscado.DNI}, cargando imagen por defecto.`);
+
+        // Usamos la ruta absoluta desde la raíz del sitio
+        imgEstudiante.src = "/img/img_default.png";
     };
 
     const botonLimpiar = document.createElement("button")
