@@ -34,7 +34,9 @@ function generaraContenedorImput() {
     botonEscanear.onclick = () => {
         iniciarEscaner((codigoEscaneado) => {
             inputDNI.value = codigoEscaneado;
+            
             confirmarExistenciaDNI(); // Ejecuta la búsqueda automáticamente al escanear
+            contenedorPadre.innerHTML = " ";
         });
     };
 

@@ -14,17 +14,21 @@ body {
     align-items: center;
     padding: 20px;
 }
+
 :root {
     --color-Boton: #bd9235;
     --color-Bordes: #A47E2E;
+    --bagraound-colorBox: #fffef5;
+    --color-bordeBox: #6B7B4B;
     --espaciado-base: 16px;
     --fuente-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* CONTENEDOR PRINCIPAL */
+.modalEscaner,
 .contenedorPadre {
-    background-color: #fffef5;
-    border: 8px solid #6B7B4B;
+    background-color: var(--bagraound-colorBox);
+    border: 8px solid var(--color-bordeBox);
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     width: auto;
@@ -68,7 +72,7 @@ body {
     border-radius: 10px 0px 0px 10px;
     font-size: 1em;
     text-align: center;
-    background-color: #fffef5;
+    background-color: var(--bagraound-colorBox);
     transition: 0.3s;
     color: #333;
 }
@@ -78,28 +82,24 @@ body {
     box-shadow: 0 0 10px rgba(164, 126, 46, 0.4);
     outline: none;
 }
-
+.botonCerrarEscaner{
+    border-radius:10px;
+}
 .botonEnviar {
+    border-radius: 0px 10px 10px 0px;
+}
+.botonCerrarEscaner,
+.botonEnviar,
+.botonEscanear {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 40px;
-    width: auto;
+    
     background-color: var(--color-Boton);
     border: 2px solid var(--color-Bordes);
-    color: white;
-    border-radius: 0px 10px 10px 0px;
-    padding: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: 600;
-}
 
-.botonEscanear {
-    height: 43px;
-    width: auto;
-    background-color: var(--color-Boton);
-    border-width: 2px 0px 2px 0px;
-    border-color: solid var(--color-Bordes);
-    border-bottom: none;
     color: white;
     padding: 10px;
     font-size: 1em;
@@ -119,6 +119,7 @@ body {
     transition: 0.3s;
     font-weight: 600;
 }
+
 .botonEscanear:hover,
 .botonEnviar:hover,
 .botonLimpiar:hover {
@@ -165,7 +166,6 @@ body {
 }
 
 .datos p {
-
     color: #394438;
 }
 
@@ -207,6 +207,25 @@ body {
     animation: parpadeo 1.2s infinite;
 }
 
+/*
+==================================================
+SCANER
+==================================================
+*/
+
+.modalEscaner {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    background-color: var(--bagraound-colorBox);
+    border: 8px solid var(--color-bordeBox);
+
+}
+
+
 @keyframes parpadeo {
     0% {
         opacity: 1;
@@ -229,6 +248,7 @@ body {
         gap: 10px;
     }
 
+    .botonEscanear,
     .botonEnviar {
         width: 50%;
         border-radius: 10px;
