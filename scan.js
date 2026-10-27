@@ -19,6 +19,7 @@ function iniciarEscaner(onDniDetectado) {
     titulo.textContent = "Apunta al código de barras del DNI / Carné";
 
     const video = document.createElement("video");
+    video.classList.add("videoCamara");
     video.id = "videoCamara";
     video.setAttribute("playsinline", true); // Vital para celulares
 

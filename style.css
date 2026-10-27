@@ -224,7 +224,11 @@ SCANER
     border: 8px solid var(--color-bordeBox);
 
 }
-
+.videoCamara{
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
 
 @keyframes parpadeo {
     0% {
