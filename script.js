@@ -101,30 +101,26 @@ async function confirmarExistenciaDNI() {
         // Consultar a tu backend (Render)
         const response = await fetch(`https://backend-iestplurin.onrender.com/buscar?dni=${dni}`);
 
-        // CASO 1: El DNI no existe en la base de datos (Backend responde con 404)
+        // Si el backend responde con error 404 (DNI no encontrado)
         if (response.status === 404) {
-            cargando.textContent = "DNI no encontrado";
+            const errorData = await response.json(); // Extraemos el JSON del backend
+
+            // Usamos el mensaje exacto que programaste ("No se encontró ningún estudiante con el DNI...")
+            cargando.textContent = errorData.mensaje;
+
             cargando.classList.remove("cargando");
             cargando.classList.add("error");
             return;
         }
 
-        // CASO 2: Si ocurre otro error del servidor (ej. 500 Error interno)
+        // Si ocurre otro error del servidor (ej. 500)
         if (!response.ok) {
             throw new Error("Error al conectar con la base de datos");
         }
 
         const estudiante = await response.json();
 
-        // Verificación adicional por seguridad si el backend retorna vacío
-        if (!estudiante || Object.keys(estudiante).length === 0) {
-            cargando.textContent = "DNI no encontrado";
-            cargando.classList.remove("cargando");
-            cargando.classList.add("error");
-            return;
-        }
-
-        // CASO 3: Si encuentra el estudiante exitosamente
+        // Si encuentra el estudiante exitosamente
         cargando.remove(); // Quita el texto de carga
         estudianteBuscado = estudiante;
         contenedorPadre.textContent = "";
@@ -133,7 +129,7 @@ async function confirmarExistenciaDNI() {
         console.log("limpiar por cualquier tecla detectado");
 
     } catch (error) {
-        // CASO 4: Error real de red (sin internet, servidor caído, etc.)
+        // Error real de red (sin internet, servidor caído, etc.)
         cargando.textContent = "Error de conexión. Intente de nuevo.";
         cargando.classList.remove("cargando");
         cargando.classList.add("error");
