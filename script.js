@@ -99,32 +99,45 @@ async function confirmarExistenciaDNI() {
 
     try {
         // Consultar a tu backend (Render)
-        const response = await fetch(`https://backend-iestplurin.onrender.com/buscar?dni=${dni}`)
+        const response = await fetch(`https://backend-iestplurin.onrender.com/buscar?dni=${dni}`);
 
-        if (!response.ok) throw new Error("Error al conectar con la base de datos")
-
-        const estudiante = await response.json();
-
-        // Si no encuentra el DNI
-        if (!estudiante || Object.keys(estudiante).length === 0) {
-            cargando.textContent = "DNI no encontrado"
-            cargando.classList.remove("cargando")
-            cargando.classList.add("error")
+        // CASO 1: El DNI no existe en la base de datos (Backend responde con 404)
+        if (response.status === 404) {
+            cargando.textContent = "DNI no encontrado";
+            cargando.classList.remove("cargando");
+            cargando.classList.add("error");
             return;
         }
 
-        // Si encuentra el estudiante
+        // CASO 2: Si ocurre otro error del servidor (ej. 500 Error interno)
+        if (!response.ok) {
+            throw new Error("Error al conectar con la base de datos");
+        }
+
+        const estudiante = await response.json();
+
+        // Verificación adicional por seguridad si el backend retorna vacío
+        if (!estudiante || Object.keys(estudiante).length === 0) {
+            cargando.textContent = "DNI no encontrado";
+            cargando.classList.remove("cargando");
+            cargando.classList.add("error");
+            return;
+        }
+
+        // CASO 3: Si encuentra el estudiante exitosamente
         cargando.remove(); // Quita el texto de carga
-        estudianteBuscado = estudiante
-        contenedorPadre.textContent = ""
-        mostrarDatos()
-        document.addEventListener("keydown", limpiar, { once: true })
-        console.log("limpiar por cualquier tecla detectado")
+        estudianteBuscado = estudiante;
+        contenedorPadre.textContent = "";
+        mostrarDatos();
+        document.addEventListener("keydown", limpiar, { once: true });
+        console.log("limpiar por cualquier tecla detectado");
+
     } catch (error) {
-        cargando.textContent = "Error de conexión. Intente de nuevo."
-        cargando.classList.remove("cargando")
-        cargando.classList.add("error")
-        console.error("Error:", error)
+        // CASO 4: Error real de red (sin internet, servidor caído, etc.)
+        cargando.textContent = "Error de conexión. Intente de nuevo.";
+        cargando.classList.remove("cargando");
+        cargando.classList.add("error");
+        console.error("Error:", error);
     }
 }
 
