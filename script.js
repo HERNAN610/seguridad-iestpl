@@ -130,7 +130,10 @@ async function confirmarExistenciaDNI() {
 
     } catch (error) {
         // Error real de red (sin internet, servidor caído, etc.)
-        cargando.textContent = "Error de conexión. Intente de nuevo.";
+        const errorData = await response.json(); // Extraemos el JSON del backend
+
+        // Usamos el mensaje exacto que programaste ("No se encontró ningún estudiante con el DNI...")
+        cargando.textContent = errorData.mensaje;
         cargando.classList.remove("cargando");
         cargando.classList.add("error");
         console.error("Error:", error);
